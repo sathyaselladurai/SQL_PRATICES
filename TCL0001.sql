@@ -1,0 +1,62 @@
+CREATE DATABASE TCLDB;
+USE TCLDB;
+
+CREATE TABLE Account (
+	ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Balance INT 
+);
+
+INSERT INTO Account VALUES
+(1,'Anbu',10000),
+(2,'Abii',8000),
+(3,'Vinaya',3400),
+(4,'Rahul',6700);
+
+SELECT * FROM Account;
+
+START TRANSACTION;
+
+UPDATE Account 
+SET Balance = 9000
+WHERE ID = 1;
+
+COMMIT;
+SELECT * FROM Account;
+
+START TRANSACTION;
+
+UPDATE Account
+SET Balance = 5000
+WHERE ID = 1;
+
+SELECT * FROM Account;
+
+ROLLBACK;
+
+SELECT * FROM Account;
+
+START TRANSACTION;
+
+UPDATE Account SET Balance = 9000 WHERE ID = 1;
+
+SELECT * FROM Account;
+
+SAVEPOINT S1;
+
+SELECT * FROM Account;
+
+UPDATE Account SET Balance = 7000 WHERE ID = 2;
+
+SELECT * FROM Account;
+
+
+ROLLBACK TO S1;
+
+SELECT * FROM Account;
+
+COMMIT;
+
+SELECT * FROM Account;
+
+DROP DATABASE TCLDB;
